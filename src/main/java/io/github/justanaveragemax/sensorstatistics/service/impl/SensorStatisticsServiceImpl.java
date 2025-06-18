@@ -52,7 +52,10 @@ public class SensorStatisticsServiceImpl implements SensorStatisticsService {
         pageable.getPageNumber(),
         pageable.getPageSize());
 
-    Page<SensorStatistics> sensorStatistics = sensorStatisticsRepository.findByDateBetween(start, end, pageable);
+    Page<SensorStatistics> sensorStatistics =
+        start == null || end == null ?
+            sensorStatisticsRepository.findAll(pageable) :
+            sensorStatisticsRepository.findByDateBetween(start, end, pageable);
     log.info("Found {} sensor statistics", sensorStatistics.getNumberOfElements());
 
     return new PagedModel<>(sensorStatistics.map(sensorStatisticsMapper::toSensorStatisticsResponse));

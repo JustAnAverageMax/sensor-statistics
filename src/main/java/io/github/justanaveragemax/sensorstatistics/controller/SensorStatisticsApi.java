@@ -25,9 +25,18 @@ public interface SensorStatisticsApi {
       summary = "Get paginated list of statistics",
       description = "Get list of statistics based on provided parameters"
   )
-  ResponseEntity<PagedModel<SensorStatisticsResponse>> getStatistics(@RequestParam(required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate startDate,
-                                                                    @RequestParam(required = false) @DateTimeFormat(iso = ISO.DATE) LocalDate endDate,
-                                                                    @Parameter(hidden = true) Pageable pageable);
+  ResponseEntity<PagedModel<SensorStatisticsResponse>> getStatistics(
+      @Parameter(description = "Start search date in format yyyy-MM-dd", example = "2025-01-01")
+      @RequestParam(required = false)
+      @DateTimeFormat(iso = ISO.DATE)
+      LocalDate startDate,
+
+      @Parameter(description = "End search date in format yyyy-MM-dd", example = "2025-02-02")
+      @RequestParam(required = false)
+      @DateTimeFormat(iso = ISO.DATE)
+      LocalDate endDate,
+
+      @Parameter(hidden = true) Pageable pageable);
 
   @GetMapping("/fetch")
   @Operation(
