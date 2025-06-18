@@ -1,0 +1,33 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    generate-ddl: false
+    open-in-view: false
+  cloud:
+    openfeign:
+      client:
+        config:
+          monitor-sensors:
+            loggerLevel: basic
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    url: /v3/api-docs
+
+clients:
+  monitor-sensors:
+    api-key: ${INTERNAL_API_KEY}
+    url: ${MONITOR_SENSORS_URL}

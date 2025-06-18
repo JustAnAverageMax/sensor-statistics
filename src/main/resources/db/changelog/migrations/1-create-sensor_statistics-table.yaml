@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-create-sensor_statistics-table
+      author: Maksim Krutalevich
+      changes:
+        - createTable:
+            tableName: sensor_statistics
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: total_sensors
+                  type: integer
+                  constraints:
+                    nullable: false
