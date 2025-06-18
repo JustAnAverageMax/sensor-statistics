@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @Table(name = "sensor_type_counts")
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @IdClass(SensorTypeCountId.class)
