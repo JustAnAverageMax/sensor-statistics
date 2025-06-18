@@ -1,0 +1,33 @@
+services:
+  sensors-statistics-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sensors-statistics-service
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-sensors-statistics:5432/sensors_statistics_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_LIQUIBASE_PASSWORD=postgres
+      - INTERNAL_API_KEY=7F01A8F1234567890123456789ABCDEF
+      - MONITOR_SENSORS_URL=http://host.docker.internal:18080
+    restart: unless-stopped
+    ports:
+      - "18081:8080"
+    depends_on:
+      - postgres-sensors-statistics
+
+  postgres-sensors-statistics:
+    image: postgres:15
+    container_name: postgres-sensors-statistics
+    environment:
+      POSTGRES_DB: sensors_statistics_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "15433:5432"
+
+volumes:
+  postgres-data:
